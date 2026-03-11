@@ -2,20 +2,33 @@
 
 require '../vendor/autoload.php';
 
-$mysqli = new mysqli("localhost","root","root123","internship");
+/* MySQL */
 
-if($mysqli->connect_error){
-    die("MySQL connection failed");
+$mysqli = new mysqli(
+    $_ENV['MYSQLHOST'],
+    $_ENV['MYSQLUSER'],
+    $_ENV['MYSQLPASSWORD'],
+    $_ENV['MYSQLDATABASE'],
+    $_ENV['MYSQLPORT']
+);
+
+if ($mysqli->connect_error) {
+    die("MySQL connection failed: " . $mysqli->connect_error);
 }
+
 
 /* MongoDB */
 
-$mongo = new MongoDB\Client("mongodb://localhost:27017");
+$mongo = new MongoDB\Client($_ENV['MONGODB_URI']);
 $profileCollection = $mongo->userprofile->profiles;
+
 
 /* Redis */
 
 $redis = new Redis();
-$redis->connect("127.0.0.1",6379);
+$redis->connect(
+    $_ENV['REDISHOST'],
+    $_ENV['REDISPORT']
+);
 
 ?>
