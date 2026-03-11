@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = []
+
+[phases.build]
+cmds = []
+
+[start]
+cmd = "apache2-foreground"
