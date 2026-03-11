@@ -6,10 +6,11 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev
 
-# Fix Apache MPM conflict
-RUN a2dismod mpm_event || true
-RUN a2dismod mpm_worker || true
-RUN a2enmod mpm_prefork
+# Fix Apache MPM conflict (disable all then enable one)
+RUN a2dismod mpm_event || true \
+ && a2dismod mpm_worker || true \
+ && a2dismod mpm_prefork || true \
+ && a2enmod mpm_prefork
 
 # Install PHP extensions
 RUN docker-php-ext-install mysqli
