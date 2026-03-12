@@ -30,5 +30,6 @@ $redis->connect(
     $_ENV['REDISHOST'],
     $_ENV['REDISPORT']
 );
+$redis->auth($_ENV['REDISPASSWORD']);
 
 ?>
